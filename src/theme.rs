@@ -77,10 +77,7 @@ impl IconMode {
                     }
                 }
                 let term = std::env::var("TERM").unwrap_or_default();
-                if term == "linux" || term == "dumb" || term.is_empty() {
-                    return false;
-                }
-                true
+                !(term == "linux" || term == "dumb" || term.is_empty())
             }
         }
     }
@@ -345,8 +342,10 @@ impl AppConfig {
         let mut candidates = Vec::new();
 
         if let Ok(xdg) = std::env::var("XDG_CONFIG_HOME") {
+            candidates.push(PathBuf::from(&xdg).join("spacesage/config.toml"));
             candidates.push(PathBuf::from(xdg).join("arch-disk-tui/config.toml"));
         } else if let Ok(home) = std::env::var("HOME") {
+            candidates.push(PathBuf::from(&home).join(".config/spacesage/config.toml"));
             candidates.push(PathBuf::from(home).join(".config/arch-disk-tui/config.toml"));
         }
         candidates.push(PathBuf::from("config.toml"));
@@ -380,8 +379,8 @@ impl AppConfig {
                     "one_file_system" => {
                         self.one_file_system = val.eq_ignore_ascii_case("true") || val == "1";
                     }
-                    "exclude" => {
-                        if val.starts_with('[') && val.ends_with(']') {
+                    "exclude"
+                        if val.starts_with('[') && val.ends_with(']') => {
                             let inner = &val[1..val.len() - 1];
                             self.exclude = inner
                                 .split(',')
@@ -389,7 +388,6 @@ impl AppConfig {
                                 .filter(|s| !s.is_empty())
                                 .collect();
                         }
-                    }
                     _ => {}
                 }
             }
