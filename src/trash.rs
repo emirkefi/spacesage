@@ -67,16 +67,14 @@ pub fn move_to_trash(target: &Path) -> io::Result<PathBuf> {
 }
 
 fn get_trash_dir() -> io::Result<PathBuf> {
-    if let Ok(xdg_data) = std::env::var("XDG_DATA_HOME") {
-        if !xdg_data.trim().is_empty() {
+    if let Ok(xdg_data) = std::env::var("XDG_DATA_HOME")
+        && !xdg_data.trim().is_empty() {
             return Ok(PathBuf::from(xdg_data).join("Trash"));
         }
-    }
-    if let Ok(home) = std::env::var("HOME") {
-        if !home.trim().is_empty() {
+    if let Ok(home) = std::env::var("HOME")
+        && !home.trim().is_empty() {
             return Ok(PathBuf::from(home).join(".local/share/Trash"));
         }
-    }
     Ok(std::env::temp_dir().join(format!("Trash-{}", unsafe { libc::geteuid() })))
 }
 
@@ -180,19 +178,15 @@ pub fn copy_to_clipboard(text: &str) -> bool {
             .stdout(Stdio::null())
             .stderr(Stdio::null())
             .spawn()
-        {
-            if let Some(mut stdin) = child.stdin.take() {
-                if stdin.write_all(text.as_bytes()).is_ok() {
+            && let Some(mut stdin) = child.stdin.take()
+                && stdin.write_all(text.as_bytes()).is_ok() {
                     drop(stdin);
-                    if let Ok(status) = child.wait() {
-                        if status.success() {
+                    if let Ok(status) = child.wait()
+                        && status.success() {
                             copied = true;
                             break;
                         }
-                    }
                 }
-            }
-        }
     }
 
     // 2. Also emit OSC 52 terminal escape sequence (supported by Kitty, Alacritty, WezTerm, Foot, tmux)
@@ -207,7 +201,7 @@ pub fn copy_to_clipboard(text: &str) -> bool {
 
 fn base64_encode(input: &[u8]) -> String {
     const TABLE: &[u8; 64] = b"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-    let mut out = String::with_capacity((input.len() + 2) / 3 * 4);
+    let mut out = String::with_capacity(input.len().div_ceil(3) * 4);
     for chunk in input.chunks(3) {
         let b0 = chunk[0] as u32;
         let b1 = if chunk.len() > 1 { chunk[1] as u32 } else { 0 };
@@ -231,12 +225,16 @@ fn base64_encode(input: &[u8]) -> String {
 }
 
 #[cfg(test)]
+pub(crate) static TEST_ENV_LOCK: std::sync::Mutex<()> = std::sync::Mutex::new(());
+
+#[cfg(test)]
 mod tests {
     use super::*;
 
     #[test]
     fn test_move_to_trash_creates_trashinfo_and_moves_file() {
-        let temp_base = std::env::temp_dir().join("arch_disk_tui_trash_test");
+        let _guard = TEST_ENV_LOCK.lock().unwrap();
+        let temp_base = std::env::temp_dir().join("spacesage_trash_test");
         let _ = fs::remove_dir_all(&temp_base);
         fs::create_dir_all(&temp_base).unwrap();
 

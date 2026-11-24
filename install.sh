@@ -8,8 +8,8 @@ YELLOW='\033[1;33m'
 RED='\033[0;31m'
 NC='\033[0m'
 
-REPO="emirkefi/arch-disk-tui"
-BIN_NAME="arch-disk-tui"
+REPO="emirkefi/spacesage"
+BIN_NAME="spacesage"
 
 echo -e "${CYAN}=== ⚡ Installing ${BIN_NAME} ===${NC}"
 
@@ -28,7 +28,7 @@ else
 fi
 
 # 1. If run inside a local checkout of the repository, build directly
-if [ -f "Cargo.toml" ] && grep -q 'name = "arch-disk-tui"' Cargo.toml 2>/dev/null; then
+if [ -f "Cargo.toml" ] && (grep -q 'name = "spacesage"' Cargo.toml 2>/dev/null || grep -q 'name = "arch-disk-tui"' Cargo.toml 2>/dev/null); then
     if ! command -v cargo &> /dev/null; then
         echo -e "${RED}Error: Cargo is not installed. Please install Rust first: https://rustup.rs${NC}"
         exit 1

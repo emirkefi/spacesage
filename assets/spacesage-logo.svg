@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <!-- Background Cosmic Gradient -->
+    <radialGradient id="bgGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#1e183a" />
+      <stop offset="45%" stop-color="#0f111a" />
+      <stop offset="100%" stop-color="#08090f" />
+    </radialGradient>
+
+    <!-- Celestial Energy Gradients -->
+    <linearGradient id="sageCyan" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7dcfff" />
+      <stop offset="100%" stop-color="#00a3ff" />
+    </linearGradient>
+
+    <linearGradient id="cosmicPurple" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#c678dd" />
+      <stop offset="100%" stop-color="#7928ca" />
+    </linearGradient>
+
+    <linearGradient id="auroraEmerald" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#78e6a0" />
+      <stop offset="100%" stop-color="#2ac3de" />
+    </linearGradient>
+
+    <linearGradient id="starGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="50%" stop-color="#7dcfff" />
+      <stop offset="100%" stop-color="#b482ff" />
+    </linearGradient>
+
+    <!-- Glow Filters -->
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <filter id="superGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="16" result="blur1" />
+      <feGaussianBlur stdDeviation="30" result="blur2" />
+      <feMerge>
+        <feMergeNode in="blur2" />
+        <feMergeNode in="blur1" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background Base Circle with Subtle Border -->
+  <circle cx="256" cy="256" r="240" fill="url(#bgGlow)" stroke="#22283d" stroke-width="4" />
+
+  <!-- Outer Astrolabe Coordinate Ring (Sage Wisdom) -->
+  <circle cx="256" cy="256" r="226" fill="none" stroke="#7dcfff" stroke-width="1.5" stroke-dasharray="3 6" opacity="0.4" />
+  <circle cx="256" cy="256" r="218" fill="none" stroke="#b482ff" stroke-width="1" opacity="0.3" />
+
+  <!-- Celestial Constellation Dots -->
+  <g fill="#7dcfff" opacity="0.7">
+    <circle cx="120" cy="140" r="2" />
+    <circle cx="390" cy="130" r="1.5" />
+    <circle cx="410" cy="360" r="2.5" />
+    <circle cx="130" cy="380" r="2" />
+    <circle cx="280" cy="90" r="1.8" />
+    <circle cx="230" cy="430" r="1.5" />
+    <circle cx="90" cy="260" r="2" />
+    <circle cx="420" cy="240" r="2" />
+  </g>
+
+  <!-- Planetary Orbit Ellipses (Space Dimension) -->
+  <!-- Orbit 1: Diagonal Right -->
+  <ellipse cx="256" cy="256" rx="200" ry="72" fill="none" stroke="url(#cosmicPurple)" stroke-width="3" transform="rotate(-30 256 256)" filter="url(#glow)" opacity="0.85" />
+  <!-- Orbit 1 Planet -->
+  <circle cx="100" cy="166" r="7" fill="url(#starGlow)" filter="url(#glow)" />
+  <circle cx="100" cy="166" r="3" fill="#ffffff" />
+
+  <!-- Orbit 2: Diagonal Left -->
+  <ellipse cx="256" cy="256" rx="195" ry="68" fill="none" stroke="url(#sageCyan)" stroke-width="2.5" stroke-dasharray="14 8" transform="rotate(40 256 256)" opacity="0.7" />
+  <!-- Orbit 2 Moonlet -->
+  <circle cx="395" cy="170" r="5" fill="url(#auroraEmerald)" filter="url(#glow)" />
+
+  <!-- The Sage's Cosmic Astrolabe Octagram (Wisdom & Knowledge) -->
+  <g transform="translate(256, 256)" stroke="url(#sageCyan)" stroke-width="1.5" opacity="0.5">
+    <line x1="0" y1="-170" x2="0" y2="170" />
+    <line x1="-170" y1="0" x2="170" y2="0" />
+    <line x1="-120" y1="-120" x2="120" y2="120" stroke-dasharray="4 4" />
+    <line x1="120" y1="-120" x2="-120" y2="120" stroke-dasharray="4 4" />
+  </g>
+
+  <!-- Concentric Wisdom Disk Rings (Storage Space Analyzed) -->
+  <circle cx="256" cy="256" r="135" fill="none" stroke="#2ac3de" stroke-width="2" stroke-dasharray="2 12" opacity="0.5" />
+  <circle cx="256" cy="256" r="110" fill="none" stroke="#c678dd" stroke-width="1.5" opacity="0.4" />
+
+  <!-- Central Sage Eye & Celestial Star -->
+  <!-- Diamond Star Shards -->
+  <path d="M 256,96 L 274,238 L 416,256 L 274,274 L 256,416 L 238,274 L 96,256 L 238,238 Z"
+        fill="url(#sageCyan)" filter="url(#superGlow)" opacity="0.85" />
+
+  <path d="M 256,130 L 268,244 L 382,256 L 268,268 L 256,382 L 244,268 L 130,256 L 244,244 Z"
+        fill="url(#auroraEmerald)" opacity="0.6" />
+
+  <!-- Inner Astrolabe Rhombus (45deg rotated) -->
+  <path d="M 256,170 L 342,256 L 256,342 L 170,256 Z"
+        fill="none" stroke="#ffffff" stroke-width="2" opacity="0.75" />
+
+  <!-- The Sage's Omniscient Lens (Eye of Insight) -->
+  <path d="M 180,256 Q 256,186 332,256 Q 256,326 180,256 Z"
+        fill="#0f111a" stroke="url(#starGlow)" stroke-width="3.5" filter="url(#glow)" />
+
+  <!-- Cosmic Iris & Core -->
+  <circle cx="256" cy="256" r="42" fill="url(#cosmicPurple)" />
+  <circle cx="256" cy="256" r="30" fill="url(#sageCyan)" />
+  <circle cx="256" cy="256" r="16" fill="#ffffff" filter="url(#glow)" />
+  <circle cx="256" cy="256" r="8" fill="#08090f" />
+
+  <!-- Pure Starlight Highlight -->
+  <circle cx="249" cy="249" r="4" fill="#ffffff" />
+</svg>

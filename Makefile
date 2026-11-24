@@ -16,9 +16,11 @@ test:
 
 install: release
 	install -d $(DESTDIR)$(BINDIR)
-	install -m 755 target/release/arch-disk-tui $(DESTDIR)$(BINDIR)/arch-disk-tui
+	install -m 755 target/release/spacesage $(DESTDIR)$(BINDIR)/spacesage
+	ln -sf spacesage $(DESTDIR)$(BINDIR)/arch-disk-tui
 
 uninstall:
+	rm -f $(DESTDIR)$(BINDIR)/spacesage
 	rm -f $(DESTDIR)$(BINDIR)/arch-disk-tui
 
 clean:
